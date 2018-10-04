@@ -1,18 +1,13 @@
 import numpy as np
 
-n = 10
-alpha = 0.
-beta = -1.
+def generate_linear (n, alpha, beta)
+  #Generate matrix with diagonal entries set to alpha value
+  huckel = np.identity(n)
+  huckel *= alpha
 
-#Generate matrix with diagonal elements set to alpha value
-huckel = np.identity(n)
-huckel *= alpha
+  #Set matrix elements for adjacent atoms to beta
+  for i in range(0,n - 1)
+    huckel[i,i+1] = beta
+    huckel[i+1,i] = beta
 
-#Set matrix elements for adjecent atoms equal to beta value
-def add_adjacent(huckel, i, j, beta):
-  if i == j :
-    # i = j. Atom cannot connect to itself
-    print('Cannot connect atom to itself')
-  else :
-    huckel[i,j] = beta
-    huckel[j,i] = beta
+  return huckel
