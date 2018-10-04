@@ -4,7 +4,7 @@ class Molecule :
   #Number of atoms in molecule
   num_atoms = 1
   #Set containing connections between adjacent atoms
-  connections = set()
+  huckel = np.zeros((2,2))
 
   def __init__(self, n) :
     # A molecule object must have at least 1 atom
@@ -12,31 +12,17 @@ class Molecule :
       raise ValueError('Must enter a positive integer')
     else:
       self.num_atoms = n
-
+      self.huckel = np.zeros((n,n))
   #Make atoms i and j adjacent
   def add_adjacent(self,i,j):
     if i < 0 or j < 0 or i >= self.num_atoms or j >= self.num_atoms: 
       print('Invalid atoms')
-    elif i < j :
-      self.connections.add((i,j))
-    elif j < i :
-      self.connections.add((j,i))
-    else:
+    elif i == j :
       # i = j. Atom cannot connect to itself
       print('Cannot connect atom to itself')
-
-  #Generate huckel matrix for molecule object
-  def generate_huckel(self, alpha, beta) :
-    #Generate matrix with diagonal entries set to alpha value
-    huckel = np.identity(self.num_atoms)
-    huckel *= alpha
-
-    #Set matrix elements for adjacent atoms to beta
-    for (i,j) in self.connections:
-      huckel[i,j] = beta
-      huckel[j,i] = beta
-    return huckel
-
+    else :
+      self.huckel[i,j] = -1
+      self.huckel[j,i] = -1
 
 def generate_linear(n) :
   m = Molecule(n)
