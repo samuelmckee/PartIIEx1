@@ -3,8 +3,7 @@ import math
 
 class Molecule :
   num_atoms = 1              #Number of atoms in molecule
-  huckel = np.zeros((2,2))   #Set containing connections between adjacent atoms
-
+  huckel = np.zeros((1,1))   #Set containing connections between adjacent atoms
 
   def __init__(self, n) :
     if n < 1:      # A molecule object must have at least 1 atom
@@ -66,17 +65,19 @@ def generate_dodecahedron():
   #Connect top and bottom layer to middle layers
   for i in range(0,5) :
     m.add_adjacent(i, i+5)
-    m.add_adjacent(i+15, i+10)
+    m.add_adjacent(i+10, i+15)
 
   #Connect two middle layers together
-  for i in range(0, 4) :
-    m.add_adjacent(i + 5, i + 10)
-    m.add_adjacent(i + 6, i + 10)
-  m.add_adjacent(5,14)
+  for i in range(5, 9) :
+    m.add_adjacent(i, i + 5)
+    m.add_adjacent(i, i + 6)
+  m.add_adjacent(9,10)
   m.add_adjacent(9,14)
   return m
 
 def print_evals(evals):
+  print()
+  print("-------------------------")
   print("Degeneracy  |  Eigenvalue")
   print("------------|------------")
   evals.sort()
@@ -90,4 +91,52 @@ def print_evals(evals):
       current_eval = eval
       degeneracy = 1
   print ("{: 10d}  | {: 2.8f}".format(degeneracy, current_eval))
+  print("-------------------------") 
+  print()
 
+#Reads user input until an integer is entered
+def get_int(message):
+  user_input = input(message)
+  while 1 :
+    try :
+      return int(user_input)
+    except ValueError :
+      user_input = input("Input must be an integer: ")
+
+#Reads user input until a positive integer is entered
+def get_pos_int(message):
+  while 1 :
+    user_input = get_int(message)
+    if user_input > 0 :
+      return user_input
+    else :
+      user_input = get_int("Input must be positive: ")
+
+#Main function of program begins here
+while 1 :
+  print("Select a type of molecule (enter number)")
+  print("1. Linear polyene with n carbons")
+  print("2. Cyclic polyene with n carbons")
+  print("3. Tetrahedron")
+  print("4. Cube")
+  print("5. Dodecahedron")
+  print("6. Exit")
+
+  choice = get_int("Enter your selection: ")
+  while choice not in [1,2,3,4,5,6]:
+    choice = get_int("Selection must be from the list: ")
+
+  switcher = {
+      1: lambda: generate_linear(get_pos_int("Enter number of atoms in chain: ")),
+      2: lambda: generate_cyclic(get_pos_int("Enter number of atoms in ring: ")),
+      3: lambda: generate_tetrahedron(),
+      4: lambda: generate_cube(),
+      5: lambda: generate_dodecahedron()
+    }
+
+  if choice == 6 :
+    break
+  else :
+    m = switcher.get(choice)()
+    evals = np.linalg.eigvals(m.huckel)
+    print_evals(evals)
