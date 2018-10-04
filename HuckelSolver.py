@@ -5,13 +5,12 @@ alpha = 0.
 beta = -1.
 
 #Generate matrix with diagonal elements set to alpha value
-  huckel = np.identity[n]
-  huckel *= alpha
-#Set matrix elements for adjecent atoms equal to beta value
+huckel = np.identity(n)
+huckel *= alpha
 
-#Make atoms i and j adjacent
+#Set matrix elements for adjecent atoms equal to beta value
 def add_adjacent(huckel, i, j, beta):
-  if i = j :
+  if i == j :
     # i = j. Atom cannot connect to itself
     print('Cannot connect atom to itself')
   else :
