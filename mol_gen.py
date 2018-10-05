@@ -8,11 +8,13 @@ def generate_linear(n) :
     m.add_adjacent(i, i+1)
   return m
 
+
 def generate_cyclic(n) :
   #Start with linear polyene, then link ends together
   m = generate_linear(n)
   m.add_adjacent(0, n-1)
   return m
+
 
 def generate_tetrahedron():
   #All atoms connected to all other atoms
@@ -23,6 +25,7 @@ def generate_tetrahedron():
       m.add_adjacent(i, j)
   return m
 
+
 def generate_cube():
   #Start with 8 member ring and add links across to form cube
   m = generate_cyclic(8)
@@ -31,6 +34,7 @@ def generate_cube():
   m.add_adjacent(2,5)
   m.add_adjacent(1,6)
   return m
+
 
 def generate_dodecahedron():
   m = mol.Molecule(20)
@@ -57,6 +61,50 @@ def generate_dodecahedron():
   m.add_adjacent(15,19)
 
   return m
+
+
+def generate_octahedron() :
+  m = mol.Molecule(6)
+
+  #Generate 4 member ring
+  for i in range(0,3) :
+    m.add_adjacent(i,i+1)
+  m.add_adjacent(0,3)
+
+  #Add additional atoms above and below ring to form octohedron
+  for i in range(0,4) :
+    m.add_adjacent(i,5)
+    m.add_adjacent(i,6)
+
+  return m
+
+
+def generate_icosahedron() :
+  m = mol.Molecule(12)
+
+  #Connections are added starting at top of molecule and working down, 1 plane of atoms at a time
+  for i in range(1,6) :
+    m.add_adjacent(0,i)
+
+  for i in range(1,5) :
+    m.add_adjacent(i,i+1)
+  m.add_adjacent(1,5)
+
+  for i in range(1,5) :
+    m.add_adjacent(i, i+5)
+    m.add_adjacent(i, i+6)
+  m.add_adjacent(5,6)
+  m.add_adjacent(5,10)
+
+  for i in range(6,10) :
+    m.add_adjacent(i,i+1)
+  m.add_adjacent(6,10)
+
+  for i in range(6,11) :
+    m.add_adjacent(i,11)
+
+  return m
+
 
 def generate_c60() :
   m = mol.Molecule(60)
