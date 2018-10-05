@@ -1,5 +1,7 @@
 import molecule as mol
 
+#This file contains functions for generating preset molecule objects"
+
 def generate_linear(n) :
   m = mol.Molecule(n)
   for i in range(0,n-1) :
