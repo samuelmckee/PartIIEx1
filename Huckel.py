@@ -94,23 +94,18 @@ def print_evals(evals):
   print("-------------------------") 
   print()
 
-#Reads user input until an integer is entered
-def get_int(message):
+#Reads user input until integer meeting predicate is supplied
+def get_int(message, err_message, pred):
   user_input = input(message)
   while 1 :
     try :
-      return int(user_input)
+      int_value = int(user_input)
+      if pred(int_value) :
+        return int_value
+      else :
+        user_input = input(err_message)
     except ValueError :
-      user_input = input("Input must be an integer: ")
-
-#Reads user input until a positive integer is entered
-def get_pos_int(message):
-  while 1 :
-    user_input = get_int(message)
-    if user_input > 0 :
-      return user_input
-    else :
-      user_input = get_int("Input must be positive: ")
+      user_input = input(err_message)
 
 #Main function of program begins here
 while 1 :
@@ -122,13 +117,11 @@ while 1 :
   print("5. Dodecahedron")
   print("6. Exit")
 
-  choice = get_int("Enter your selection: ")
-  while choice not in [1,2,3,4,5,6]:
-    choice = get_int("Selection must be from the list: ")
+  choice = get_int("Enter your selection: ", "Selection must be from list: ", lambda x: x in [1,2,3,4,5,6])
 
   switcher = {
-      1: lambda: generate_linear(get_pos_int("Enter number of atoms in chain: ")),
-      2: lambda: generate_cyclic(get_pos_int("Enter number of atoms in ring: ")),
+      1: lambda: generate_linear(get_int("Enter number of atoms in chain: ", "Input must be integer greater than 1: ", lambda x : x > 1)),
+      2: lambda: generate_cyclic(get_int("Enter number of atoms in ring: ", "Input must be integer greater than 2: ", lambda x : x > 2)),
       3: lambda: generate_tetrahedron(),
       4: lambda: generate_cube(),
       5: lambda: generate_dodecahedron()
