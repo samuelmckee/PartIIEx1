@@ -13,6 +13,7 @@ def get_int(message, err_message, pred):
     except ValueError :
       user_input = input(err_message)
 
+#Takes list of eigenvalues and prints it to console with degeneracies
 def print_evals(evals):
   print()
   print("-------------------------")
@@ -20,12 +21,12 @@ def print_evals(evals):
   print("------------|------------")
   evals.sort()
   current_eval = evals[0]  #Eigenvalue currently being checked for degeneracy
-  degeneracy = 1   #Degeneracy of current eigenvalue
+  degeneracy = 1           #Degeneracy of current eigenvalue
   for eval in evals[1:]:
-    if math.isclose(eval, current_eval, abs_tol=1e-10) :  #Checks if two eigenvalues are within given tolerance
-      degeneracy += 1
+    if math.isclose(eval, current_eval, abs_tol=1e-10) :  #Checks if two eigenvalues are within given tolerance (and counts them as degenerate if they are)
+      degeneracy += 1                                     #Increment degeneracy for current eigenvalue
     else :
-      print ("{: 10d}  | {: 2.8f}".format(degeneracy, current_eval))
+      print ("{: 10d}  | {: 2.8f}".format(degeneracy, current_eval))  #Print current eigenvalue/degeneracy and begin processing next eigenvalue
       current_eval = eval
       degeneracy = 1
   print ("{: 10d}  | {: 2.8f}".format(degeneracy, current_eval))

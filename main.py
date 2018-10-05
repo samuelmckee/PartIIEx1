@@ -13,6 +13,7 @@ while 1 :
 
   choice = utils.get_int("Enter your selection: ", "Selection must be from list: ", lambda x: x in [1,2,3,4,5,6])
 
+  #lambda functions that return molecule object of desired type
   switcher = {
       1: lambda: gen.generate_linear(utils.get_int("Enter number of atoms in chain: ", "Input must be integer greater than 1: ", lambda x : x > 1)),
       2: lambda: gen.generate_cyclic(utils.get_int("Enter number of atoms in ring: ", "Input must be integer greater than 2: ", lambda x : x > 2)),
@@ -21,9 +22,9 @@ while 1 :
       5: lambda: gen.generate_dodecahedron()
     }
 
-  if choice == 6 :
+  if choice == 6 :  #User selected exit
     break
   else :
-    m = switcher.get(choice)()
-    evals = np.linalg.eigvals(m.huckel)
-    utils.print_evals(evals)
+    m = switcher.get(choice)()           #Retrieve and run lambda function from switcher to get molecule object
+    evals = np.linalg.eigvals(m.huckel)  #Extract stored matrix from molecule and calculate eigenvalues
+    utils.print_evals(evals)             #Output results

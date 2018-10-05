@@ -7,7 +7,7 @@ def generate_linear(n) :
   return m
 
 def generate_cyclic(n) :
-  #Start with linear poly-ene, then link ends together
+  #Start with linear polyene, then link ends together
   m = generate_linear(n)
   m.add_adjacent(0, n-1)
   return m
@@ -31,21 +31,18 @@ def generate_cube():
   return m
 
 def generate_dodecahedron():
-  #Start with empty 20 point molecule
   m = mol.Molecule(20)
-  #Dodecahedron is split into planes of atoms, which are added sequentially
+
   for i in range(0,4) :
     m.add_adjacent(i,i+1)
     m.add_adjacent(i+15,i+16)
   m.add_adjacent(0,4)
   m.add_adjacent(15,19)
 
-  #Connect top and bottom layer to middle layers
   for i in range(0,5) :
     m.add_adjacent(i, i+5)
     m.add_adjacent(i+10, i+15)
 
-  #Connect two middle layers together
   for i in range(5, 9) :
     m.add_adjacent(i, i + 5)
     m.add_adjacent(i, i + 6)
