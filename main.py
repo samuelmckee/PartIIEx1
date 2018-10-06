@@ -20,12 +20,12 @@ while 1 :
   switcher = {
       1: lambda: generate_linear(get_int("Enter number of atoms in chain: ", "Input must be integer greater than 1: ", lambda x : x > 1)),
       2: lambda: generate_cyclic(get_int("Enter number of atoms in ring: ", "Input must be integer greater than 2: ", lambda x : x > 2)),
-      3: lambda: generate_tetrahedron(),
-      4: lambda: generate_cube(),
-      5: lambda: generate_dodecahedron(),
-      6: lambda: generate_octahedron(),
-      7: lambda: generate_icosahedron(),
-      8: lambda: generate_c60()
+      3: generate_tetrahedron,
+      4: generate_cube,
+      5: generate_dodecahedron,
+      6: generate_octahedron,
+      7: generate_icosahedron,
+      8: generate_c60
     }
 
   if choice == 9 :  #User selected exit
