@@ -1,9 +1,9 @@
-import molecule as mol
+from molecule import *
 
 #This file contains functions for generating preset molecule objects"
 
 def generate_linear(n) :
-  m = mol.Molecule(n)
+  m = Molecule(n)
   for i in range(0,n-1) :
     m.add_adjacent(i, i+1)
   return m
@@ -18,7 +18,7 @@ def generate_cyclic(n) :
 
 def generate_tetrahedron():
   #All atoms connected to all other atoms
-  m = mol.Molecule(4)
+  m = Molecule(4)
   for i in range(0,4) :
    for j in range(i,4) :
     if not i==j :
@@ -37,7 +37,7 @@ def generate_cube():
 
 
 def generate_dodecahedron():
-  m = mol.Molecule(20)
+  m = Molecule(20)
 
   #Connections are added starting at top of molecule and working down, 1 plane of atoms at a time
   for i in range(0,4) :
@@ -64,7 +64,7 @@ def generate_dodecahedron():
 
 
 def generate_octahedron() :
-  m = mol.Molecule(6)
+  m = Molecule(6)
 
   #Generate 4 member ring
   for i in range(0,3) :
@@ -80,7 +80,7 @@ def generate_octahedron() :
 
 
 def generate_icosahedron() :
-  m = mol.Molecule(12)
+  m = Molecule(12)
 
   #Connections are added starting at top of molecule and working down, 1 plane of atoms at a time
   for i in range(1,6) :
@@ -107,7 +107,7 @@ def generate_icosahedron() :
 
 
 def generate_c60() :
-  m = mol.Molecule(60)
+  m = Molecule(60)
 
   #Connection are added starting at top of molecule and working down, 1 plane of atoms at a time
   for i in range(0,4) :

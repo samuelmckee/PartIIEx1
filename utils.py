@@ -1,4 +1,4 @@
-import math
+from math import isclose
 
 #Reads user input until integer meeting predicate is supplied
 def get_int(message, err_message, pred):
@@ -23,7 +23,7 @@ def print_evals(evals):
   current_eval = evals[0]  #Eigenvalue currently being checked for degeneracy
   degeneracy = 1           #Degeneracy of current eigenvalue
   for eval in evals[1:]:
-    if math.isclose(eval, current_eval, abs_tol=1e-10) :  #Checks if two eigenvalues are within given tolerance (and counts them as degenerate if they are)
+    if isclose(eval, current_eval, abs_tol=1e-10) :  #Checks if two eigenvalues are within given tolerance (and counts them as degenerate if they are)
       degeneracy += 1                                     #Increment degeneracy for current eigenvalue
     else :
       print ("{: 10d}  | {: 2.8f}".format(degeneracy, current_eval))  #Print current eigenvalue/degeneracy and begin processing next eigenvalue
