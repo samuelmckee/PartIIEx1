@@ -27,12 +27,17 @@ def generate_tetrahedron():
 
 
 def generate_cube():
-  #Start with 8 member ring and add links across to form cube
-  m = generate_cyclic(8)
+  #Start with 2 x 4 member rings and add links across to form cube
+  m = Molecule(8)
+  for i in range(0,3) :
+    m.add_adjacent(i,i+1)
+    m.add_adjacent(i+4,i+5)
   m.add_adjacent(0,3)
   m.add_adjacent(4,7)
-  m.add_adjacent(2,5)
-  m.add_adjacent(1,6)
+
+  for i in range(0,4) :
+    m.add_adjacent(i, i+4)
+
   return m
 
 
@@ -73,8 +78,8 @@ def generate_octahedron() :
 
   #Add additional atoms above and below ring to form octohedron
   for i in range(0,4) :
+    m.add_adjacent(i,4)
     m.add_adjacent(i,5)
-    m.add_adjacent(i,6)
 
   return m
 
